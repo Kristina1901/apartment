@@ -1,22 +1,8 @@
 <template>
   <div class="app">
-    <form @submit.prevent>
-      <h4>Создание поста</h4>
-      <input type="text" placeholder="Название" @input="title = $event.target.value" v-bind:value="title"/>
-      <input type="text" placeholder="Описание" @input="body = $event.target.value" v-bind:value="body"/>
-      <button class="btn" @click="createPost">Создать</button>
-    </form>
-    <div class="post" v-for="post in posts" v-bind:key="post.id"> 
-      <div>
-        <strong>Название:</strong>
-        {{post.title}}
-     </div>
-     <div>
-        <strong>Описание:</strong>
-        {{post.body}}
-     </div>
-     </div>
-     </div>
+    <PostForm @create="onCreatePost"/>
+   <PostList :posts="posts"/>
+    </div>
  </template>
 <style scoped>
 * {
@@ -52,7 +38,12 @@ form {
 }
 </style>
 <script>
+import PostForm from './components/PostForm.vue';
+import PostList from './components/PostList.vue'
 export default {
+  components: {
+    PostList, PostForm
+  },
   data() {
     return {
       posts: [
@@ -60,20 +51,12 @@ export default {
         {id: 2, title: "JavaScript2", body: "Описание поста2"},
         {id: 2, title: "JavaScript2", body: "Описание поста2"},
       ],
-      title: '',
-      body: ''
     }
   },
   methods: {
-     createPost() {
-      const newPost = {
-        id: Date.now(),
-        title: this.title,
-        body: this.body
-      }
-    this.posts.push(newPost)
-    this.title = ''
-    this.body = ''
+    onCreatePost(post) {
+    this.posts.push(post); 
+    console.log(post) 
     }
   }
 }
