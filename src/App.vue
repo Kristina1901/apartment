@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <PostForm @create="onCreatePost"/>
-   <PostList :posts="posts"/>
+   <PostList :posts="posts" @remove="removePost"/>
     </div>
  </template>
 <style scoped>
@@ -49,7 +49,7 @@ export default {
       posts: [
         {id: 1, title: "JavaScript", body: "Описание поста"},
         {id: 2, title: "JavaScript2", body: "Описание поста2"},
-        {id: 2, title: "JavaScript2", body: "Описание поста2"},
+        {id: 3, title: "JavaScript2", body: "Описание поста2"},
       ],
     }
   },
@@ -57,6 +57,9 @@ export default {
     onCreatePost(post) {
     this.posts.push(post); 
     console.log(post) 
+    },
+    removePost(post) {
+      this.posts = this.posts.filter(p => p.id!==post.id)
     }
   }
 }

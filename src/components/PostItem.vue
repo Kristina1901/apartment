@@ -9,7 +9,7 @@
        </div>
     </div>
        <div class="post__btns"></div>
-       <button class="btn">Удалить</button>
+       <button class="btn" @click="$emit('remove', post)">Удалить</button>
        </div>
     
     </template>
